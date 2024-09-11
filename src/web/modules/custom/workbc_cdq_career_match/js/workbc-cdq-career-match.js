@@ -16,14 +16,13 @@
 
       $(once('cdqcareermatch', '.careers-main-wrapper', context)).each(function () {
 
-        $('.compare-career-checkbox').on('click', function() {
+        $('.compare-career-checkbox').on('click', function () {
           let careerMatchId = $(this).data('career-match-id');
           selected = $(this).is(':checked');
           if (selected && totalSelected() > 3) {
             $(this).prop('checked', false);
             $(".compare-popup-wrapper").addClass("active");
-          }
-          else {
+          } else {
             $.ajax({
               url: Drupal.url('career-match/update-selected'),
               type: 'POST',
@@ -34,15 +33,14 @@
           if (totalSelected() > 1) {
             $('.clear-compare').removeClass("disable");
             $('.compare-career').removeClass("disable");
-          }
-          else {
+          } else {
             $('.clear-compare').addClass("disable");
             $('.compare-career').addClass("disable");
           }
         });
 
-        $('.clear-compare').on('click', function() {
-          $('.compare-career-checkbox').each(function() {
+        $('.clear-compare').on('click', function () {
+          $('.compare-career-checkbox').each(function () {
             if ($(this).is(':checked')) {
               let careerMatchId = $(this).data('career-match-id');
               $.ajax({
@@ -54,46 +52,44 @@
             }
           });
         });
-
-
         $('.close-compare-popup, .compare-popup-close').on('click', function() {
           $(".compare-popup-wrapper").removeClass("active");
         });
 
 
         // when user selects a career profile from the table
-        $('.views-field-title').on('click', function() {
+        $('.views-field-title').on('click', function () {
           let current_item = $(this).closest('.career-table-row').data('id');
-          $('.career-content-item').each(function() {
+          $('.career-content-item').each(function () {
             $(this).removeClass("active");
           });
-          $('.' + current_item).each(function() {
+          $('.' + current_item).each(function () {
             $(this).addClass("active")
           });
 
-          $('.career-table-row').each(function() {
+          $('.career-table-row').each(function () {
             $(this).closest('.career-table-row').removeClass("active");
           });
           $(this).closest('.career-table-row').addClass("active");
 
-          $('.cdq-results').each(function() {
+          $('.cdq-results').each(function () {
             $(this).addClass("user-selected");
           });
           $('.bottom-links').hide()
-          $("html, body").animate({ scrollTop: $(".path-quiz").offset().top }, "slow");
+          $("html, body").animate({scrollTop: $(".path-quiz").offset().top}, "slow");
         });
 
         // when user clicks back to quiz link ...
-        $('a#back-to-quiz').on('click', function() {
-          $('.cdq-results').each(function() {
+        $('a#back-to-quiz').on('click', function () {
+          $('.cdq-results').each(function () {
             $(this).removeClass("user-selected");
           });
 
-          $('.career-content-item').each(function() {
+          $('.career-content-item').each(function () {
             $(this).removeClass("active");
           });
           $('.bottom-links').show()
-          $("html, body").animate({ scrollTop: $(".path-quiz").offset().top }, "slow");
+          $("html, body").animate({scrollTop: $(".path-quiz").offset().top}, "slow");
         });
 
         function totalSelected() {
@@ -103,7 +99,7 @@
           if ($('#mobi-career-table').css('display') == "block") {
             target = ".careers-mobi-main-wrapper .compare-career-checkbox";
           }
-          $(target).each(function() {
+          $(target).each(function () {
             if ($(this).is(':checked')) {
               total++;
             }
@@ -175,7 +171,8 @@
         });
       });
 
-        $(".work-value-quiz-carousel > .row").slick({
+      $(once('main-content', '.work-value-quiz-carousel', context)).each(function () {
+        $(this).find("> .row").slick({
           slidesToShow: 1,
           slidesToScroll: 1,
           infinite: true,
@@ -184,55 +181,57 @@
           adaptiveHeight: true,
           nextArrow: $(".hideshow-workbc"),
         });
+      });
 
-        $(".carousel-slider-mobi-row").each(function () {
-          $(this).slick({
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            adaptiveHeight: true,
-            infinite: false,
-            dots: true,
-            arrows: false,
-          });
+      $(once('main-content', '.carousel-slider-mobi-row', context)).each(function () {
+        $(this).slick({
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          adaptiveHeight: true,
+          infinite: false,
+          dots: true,
+          arrows: false,
         });
+      });
 
-        $(".carousel-mobi-tabs-trigger").on("click", function () {
-          $(this).next().addClass("active");
-          $("body").addClass("overlayBg");
-        });
-        $(".carousel-mobi-tab-close").on("click", function () {
-          $(this).parent().removeClass("active");
-          $("body").removeClass("overlayBg");
-        });
-        $(".carousel-mobi-tab-item").on("click", function () {
-          $(".carousel-mobi-tab-item").removeClass("active");
-          $(this).addClass("active");
+      $(".carousel-mobi-tabs-trigger").on("click", function () {
+        $(this).next().addClass("active");
+        $("body").addClass("overlayBg");
+      });
+      $(".carousel-mobi-tab-close").on("click", function () {
+        $(this).parent().removeClass("active");
+        $("body").removeClass("overlayBg");
+      });
+      $(".carousel-mobi-tab-item").on("click", function () {
+        $(".carousel-mobi-tab-item").removeClass("active");
+        $(this).addClass("active");
 
-          const getTabItemId = $(this).data("href");
-          if (getTabItemId == "bottomcarousel") {
-            $(this)
-              .parents("#myResult")
-              .find(".extradivs")
-              .addClass("displayMobiPrint");
-          } else {
-            $(this)
-              .parents("#myResult")
-              .find(".extradivs")
-              .removeClass("displayMobiPrint");
-          }
-          $(".carousel-inner-mobi").removeClass("active");
-          $(`.carousel-inner-mobi[data-id=${getTabItemId}]`).addClass("active");
-          $(".active > .carousel-slider-mobi-row").slick(
-            "slickGoTo",
-            parseInt(0),
-            true
-          );
+        const getTabItemId = $(this).data("href");
+        console.log(getTabItemId);
+        if (getTabItemId == "bottomcarousel") {
+          $(this)
+            .parents("#myResult")
+            .find(".extradivs")
+            .addClass("displayMobiPrint");
+        } else {
+          $(this)
+            .parents("#myResult")
+            .find(".extradivs")
+            .removeClass("displayMobiPrint");
+        }
+        $(".carousel-inner-mobi").removeClass("active");
+        $(`.carousel-inner-mobi[data-id=${getTabItemId}]`).addClass("active");
+        $(".active > .carousel-slider-mobi-row").slick(
+          "slickGoTo",
+          parseInt(0),
+          true
+        );
 
-          $(this).parent().parent().removeClass("active");
-          $("body").removeClass("overlayBg");
+        $(this).parent().parent().removeClass("active");
+        $("body").removeClass("overlayBg");
 
-          $(".carousel-mobi-tabs-trigger > span.text").text($(this).data("text"));
-        });
+        $(".carousel-mobi-tabs-trigger > span.text").text($(this).data("text"));
+      });
 
 
       $(once('cdqprint', '.career-top-right', context)).each(function () {
@@ -241,7 +240,7 @@
         });
       });
 
-      $(".mobi_cari_quiz").each(function () {
+      $(once('main-content', '.mobi_cari_quiz', context)).each(function () {
         $(this).find(".carousel-inner > .career-item").slick({
           slidesToShow: 1,
           slidesToScroll: 1,
@@ -251,18 +250,7 @@
         });
       });
 
-
-      $("#myResult").each(function () {
-        $(this).find(".carousel-inner-mobi > .row").slick({
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          infinite: false,
-          dots: true,
-          arrows: false
-        });
-      });
-
-      $(".mobi-career-content-compare").each(function () {
+      $(once('main-content', '.mobi-career-content-compare', context)).each(function () {
         $(this).slick({
           slidesToShow: 1,
           slidesToScroll: 1,

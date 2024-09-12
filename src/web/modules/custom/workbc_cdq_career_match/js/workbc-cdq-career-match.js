@@ -76,7 +76,6 @@
             $(this).addClass("user-selected");
           });
           $('.bottom-links').hide()
-          $("html, body").animate({scrollTop: $(".path-quiz").offset().top}, "slow");
         });
 
         // when user clicks back to quiz link ...
@@ -89,7 +88,7 @@
             $(this).removeClass("active");
           });
           $('.bottom-links').show()
-          $("html, body").animate({scrollTop: $(".path-quiz").offset().top}, "slow");
+          $("html, body").animate({scrollTop: $(".careers-mobi-table-wrapper").offset().top}, "slow");
         });
 
         function totalSelected() {
